@@ -39,3 +39,39 @@ This is for version: {target-db-version}
 unrendered guide: link:{guide}[]
 
 rendered guide available from: `:play {rendered-guide}`
+
+
+=== Model
+
+image::documentation/img/model.svg[]
+
+=== Example
+
+
+.Movie Cast
+[source,cypher]
+====
+MATCH (movie:Movie)<-[:ACTED_IN]-(cast)
+WHERE movie.title = "Your favorite movie"
+RETURN cast
+====
+
+.Tom Hanks Movies
+[source,cypher]
+====
+MATCH (a:Person {name:"Tom Hanks"})-[:ACTED_IN]->(m:Movie)<-[:DIRECTED]-(d:Person) 
+RETURN a,m,d LIMIT 10;
+====
+
+.Tom Hanks Movies
+image::documentation/img/example.png[]
+
+=== Recommendation
+
+[source,cypher]
+====
+MATCH (movie:Movie)<-[:ACTED_IN]-(actor)-[:ACTED_IN]->(rec:Movie)
+WHERE movie.title IN $favorites
+RETURN rec, count(*) as freq 
+ORDER BY freq DESC LIMIT 5
+====
