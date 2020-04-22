@@ -18,7 +18,7 @@
 //target version of the database this example should run on
 :target-db-version: 3.5,4.0
 //specify a Bloom perspective, or false if not used
-:bloom-perspective: resources/bloom.json
+:bloom-perspective: bloom/movie-graph-perspective.json
 //guide for the graph example. Should be friendly enough to be converted into various document formats
 :guide: documentation/guide.adoc
 //temporary for rendered guides
