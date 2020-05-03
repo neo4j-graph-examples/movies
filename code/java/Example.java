@@ -1,5 +1,5 @@
-// Java Driver Dependendy: http://search.maven.org/#artifactdetails|org.neo4j.driver|neo4j-java-driver|4.0.1|jar
-// Reactive Steams http://search.maven.org/#artifactdetails|org.reactivestreams|reactive-streams|1.0.3|jar
+// Java Driver Dependency: http://search.maven.org/#artifactdetails|org.neo4j.driver|neo4j-java-driver|4.0.1|jar
+// Reactive Streams http://search.maven.org/#artifactdetails|org.reactivestreams|reactive-streams|1.0.3|jar
 // javac -cp neo4j-java-driver-*.jar Example.java && java -cp neo4j-java-driver-*.jar:reactive-streams-*.jar:. Example
 
 import org.neo4j.driver.*;
