@@ -25,6 +25,8 @@
 :rendered-guide: movies
 //guide for modelling decisions. Should be friendly enough to be converted into various document formats
 :model-guide: 
+:model-image: documentation/img/model.svg
+:example-image: documentation/img/example.png
 
 image::{icon}[width=24]
 
@@ -43,35 +45,34 @@ rendered guide available from: `:play {rendered-guide}`
 
 === Model
 
-image::documentation/img/model.svg[]
+image::{model-image}[]
 
 === Example
 
-
 .Movie Cast
 [source,cypher]
-====
+----
 MATCH (movie:Movie)<-[:ACTED_IN]-(cast)
 WHERE movie.title = "Your favorite movie"
 RETURN cast
-====
+----
 
 .Tom Hanks Movies
 [source,cypher]
-====
+----
 MATCH (a:Person {name:"Tom Hanks"})-[:ACTED_IN]->(m:Movie)<-[:DIRECTED]-(d:Person) 
 RETURN a,m,d LIMIT 10;
-====
+----
 
 .Tom Hanks Movies
-image::documentation/img/example.png[]
+image::{example-image}[]
 
 === Recommendation
 
 [source,cypher]
-====
+----
 MATCH (movie:Movie)<-[:ACTED_IN]-(actor)-[:ACTED_IN]->(rec:Movie)
 WHERE movie.title IN $favorites
 RETURN rec, count(*) as freq 
 ORDER BY freq DESC LIMIT 5
-====
+----
