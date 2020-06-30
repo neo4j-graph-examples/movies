@@ -1,9 +1,6 @@
 # pip install neo4j
 
-from neo4j import (
-    GraphDatabase,
-    basic_auth,
-)
+from neo4j import GraphDatabase
 
 scheme = "neo4j"
 port = 7687
@@ -13,9 +10,9 @@ user_password = "example_password"
 
 uri = "{scheme}://{host_name}:{port}".format(scheme=scheme, host_name=host_name, port=port)
 
-driver = GraphDatabase.driver(uri, auth=basic_auth(user_name, user_password))
+driver = GraphDatabase.driver(uri, auth=(user_name, user_password))
 
-def get_recomended_movies(transaction, favorites):
+def get_recomended_movies(tx, favorites):
     # this is a transaction function,
     # this function can be retried by the transaction manager
 
@@ -26,7 +23,7 @@ def get_recomended_movies(transaction, favorites):
     ORDER BY freq DESC LIMIT 5
     '''
 
-    result = transaction.run(cypher_query, parameters={"favorites": favorites})
+    result = tx.run(cypher_query, parameters={"favorites": favorites})
 
     movies = []
 
