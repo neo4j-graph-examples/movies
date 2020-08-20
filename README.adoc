@@ -28,6 +28,17 @@
 :model-image: documentation/img/model.svg
 :example-image: documentation/img/example.png
 
+:query: MATCH (movie:Movie)<-[:ACTED_IN]-(actor)-[:ACTED_IN]->(rec:Movie) +
+ WHERE movie.title IN $favorites +
+ RETURN rec.title as title, count(*) as freq +
+ ORDER BY freq DESC LIMIT 5 +
+
+:param-name: favorites
+:param-value: The Matrix
+:result-column: title
+:expected-result: Cloud Atlas
+
+
 image::{icon}[width=24]
 
 = {name} Graph Example
@@ -42,6 +53,8 @@ unrendered guide: link:{guide}[]
 
 rendered guide available from: `:play {rendered-guide}`
 
+You can also access the same data from https://demo.neo4jlabs.com:7473
+using the user "movies" with password "movies" in the database "movies".
 
 === Model
 
@@ -69,10 +82,13 @@ image::{example-image}[]
 
 === Recommendation
 
-[source,cypher]
+[source,cypher,subs=attributes]
 ----
+{query}
+////
 MATCH (movie:Movie)<-[:ACTED_IN]-(actor)-[:ACTED_IN]->(rec:Movie)
 WHERE movie.title IN $favorites
 RETURN rec, count(*) as freq 
 ORDER BY freq DESC LIMIT 5
+////
 ----
