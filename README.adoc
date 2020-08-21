@@ -29,11 +29,11 @@
 :example-image: documentation/img/example.png
 
 :query: MATCH (movie:Movie)<-[:ACTED_IN]-(actor)-[:ACTED_IN]->(rec:Movie) +
- WHERE movie.title IN $favorites +
+ WHERE movie.title = $favorite +
  RETURN rec.title as title, count(*) as freq +
  ORDER BY freq DESC LIMIT 5 +
 
-:param-name: favorites
+:param-name: favorite
 :param-value: The Matrix
 :result-column: title
 :expected-result: Cloud Atlas
@@ -87,7 +87,7 @@ image::{example-image}[]
 {query}
 ////
 MATCH (movie:Movie)<-[:ACTED_IN]-(actor)-[:ACTED_IN]->(rec:Movie)
-WHERE movie.title IN $favorites
+WHERE movie.title = $favorite
 RETURN rec, count(*) as freq 
 ORDER BY freq DESC LIMIT 5
 ////
