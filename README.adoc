@@ -1,5 +1,5 @@
 :name: movies
-:long_name: Northwind
+:long_name: Movies
 :description: Small example graph of popular movies and actors
 :icon:
 :logo: documentation/img/icon.svg
