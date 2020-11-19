@@ -13,8 +13,8 @@
 :bloom-perspective: bloom/movies.bloom-perspective
 :guide: documentation/movies.neo4j-browser-guide
 :rendered-guide: https://guides.neo4j.com/sandbox/movies/index.html
-:model: documentation/model.svg
-:example-image: documentation/img/example.png
+:model: documentation/img/model.svg
+:example: documentation/img/example.png
 
 :query: MATCH (movie:Movie {title:$favorite})<-[:ACTED_IN]-(actor)-[:ACTED_IN]->(rec:Movie) +
  RETURN distinct rec.title as title LIMIT 20 +
@@ -59,7 +59,7 @@ Import Script: `cypher-shell -a <address> -u neo4j -p <password> -f {use-load-sc
 
 Unrendered guide: link:{guide}[]
 
-Data files: `{data}`
+Data files: `{use-dump-file}`
 
 === Code Examples
 
