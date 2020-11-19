@@ -1,94 +1,70 @@
-//name of the graph example
-:name: Movies
-//graph example description
+:name: movies
+:long_name: Northwind
 :description: Small example graph of popular movies and actors
-//icon representing graph example
-:icon: resources/icon.svg
-//associated search tags, separate multiple tags with comma
-:tags: movies,recommendations
-//graph example author
+:icon:
+:logo: documentation/img/icon.svg
+:tags: example-data,dataset,movie-data,movies,recommendations,cypher
 :author: Andreas Kollegger
-//use a script to generate/process data? Set to either path for script, or false if not used
 :use-load-script: scripts/import.cypher
-//use a graph dump file for initial data set? Set to either path for dump file, or false if not used
-:use-dump-file: false
-//use a plugin for the database, separate multiple plugins with comma. 'public' plugins are apoc, graph-algorithms. 
-//other algorithms are specified by path, e.g. apoc,graph-algorithms; Set to false if not used
-:use-plugin: false
-//target version of the database this example should run on
+:data:
+:use-dump-file: data/movies-40.dump
+:use-plugin:
 :target-db-version: 3.5,4.0
-//specify a Bloom perspective, or false if not used
-:bloom-perspective: bloom/movie-graph-perspective.json
-//guide for the graph example. Should be friendly enough to be converted into various document formats
-:guide: documentation/guide.adoc
-//temporary for rendered guides
-:rendered-guide: movies
-//guide for modelling decisions. Should be friendly enough to be converted into various document formats
-:model-guide: 
-:model-image: documentation/img/model.svg
+:bloom-perspective: bloom/movies.bloom-perspective
+:guide: documentation/movies.neo4j-browser-guide
+:rendered-guide: https://guides.neo4j.com/sandbox/movies/index.html
+:model: documentation/model.svg
 :example-image: documentation/img/example.png
 
-:query: MATCH (movie:Movie)<-[:ACTED_IN]-(actor)-[:ACTED_IN]->(rec:Movie) +
- WHERE movie.title = $favorite +
- RETURN rec.title as title, count(*) as freq +
- ORDER BY freq DESC LIMIT 5 +
+:query: MATCH (movie:Movie {title:$favorite})<-[:ACTED_IN]-(actor)-[:ACTED_IN]->(rec:Movie) +
+ RETURN distinct rec.title as title LIMIT 20 +
 
 :param-name: favorite
 :param-value: The Matrix
 :result-column: title
 :expected-result: Cloud Atlas
 
+:model-guide:
+:todo:
+image::{logo}[width=100]
 
-image::{icon}[width=24]
+== {long_name} Graph Example
 
-= {name} Graph Example
+Description: _{description}_
 
-Description: {description}
+.Model
+image::{model}[]
 
-=== Setup
+.Example
+image::{example}[width=600]
 
-This is for version: {target-db-version}
-
-unrendered guide: link:{guide}[]
-
-rendered guide available from: `:play {rendered-guide}`
-
-You can also access the same data from https://demo.neo4jlabs.com:7473
-using the user "movies" with password "movies" in the database "movies".
-
-=== Model
-
-image::{model-image}[]
-
-=== Example
-
-.Movie Cast
-[source,cypher]
-----
-MATCH (movie:Movie)<-[:ACTED_IN]-(cast)
-WHERE movie.title = "Your favorite movie"
-RETURN cast
-----
-
-.Tom Hanks Movies
-[source,cypher]
-----
-MATCH (a:Person {name:"Tom Hanks"})-[:ACTED_IN]->(m:Movie)<-[:DIRECTED]-(d:Person) 
-RETURN a,m,d LIMIT 10;
-----
-
-.Tom Hanks Movies
-image::{example-image}[]
-
-=== Recommendation
-
+.Example Query:
 [source,cypher,subs=attributes]
 ----
 {query}
-////
-MATCH (movie:Movie)<-[:ACTED_IN]-(actor)-[:ACTED_IN]->(rec:Movie)
-WHERE movie.title = $favorite
-RETURN rec, count(*) as freq 
-ORDER BY freq DESC LIMIT 5
-////
 ----
+
+=== Setup
+
+This is for version: `{target-db-version}`
+
+The database is also available on https://demo.neo4jlabs.com:7473
+
+Username "movies", password: "movies", database: "movies"
+
+Rendered guide available from: `:play movie graph` 
+// or `:play {rendered-guide}``
+
+Import Script: `cypher-shell -a <address> -u neo4j -p <password> -f {use-load-script}`
+
+Unrendered guide: link:{guide}[]
+
+Data files: `{data}`
+
+=== Code Examples
+
+* link:code/javascript/example.js[JavaScript]
+* link:code/java/Example.java[Java]
+* link:code/csharp/Example.cs[C#]
+* link:code/python/example.py[Python]
+* link:code/go/example.go[Go]
