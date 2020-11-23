@@ -1,11 +1,11 @@
 :name: movies
-:long_name: Movies
+:long-name: Movies
 :description: Small example graph of popular movies and actors
 :icon:
 :logo: documentation/img/icon.svg
 :tags: example-data,dataset,movie-data,movies,recommendations,cypher
 :author: Andreas Kollegger
-:use-load-script: scripts/import.cypher
+:use-load-script: scripts/movies.cypher
 :data:
 :use-dump-file: data/movies-40.dump
 :use-plugin:
@@ -28,7 +28,7 @@
 :todo:
 image::{logo}[width=100]
 
-== {long_name} Graph Example
+== {long-name} Graph Example
 
 Description: _{description}_
 

@@ -1,6 +1,7 @@
 {
     "name": "movies",
     "description":"Small example graph of popular movies and actors",
+    "scriptFile":"scripts/movies.cypher",
     "install": [
       {
           "dumpFile": "data/movies-35.dump",
