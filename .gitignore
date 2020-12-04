@@ -2,4 +2,9 @@
 node_modules
 *.class
 package-lock.json
-
+code/csharp/bin
+code/csharp/debug
+code/csharp/obj
+code/javascript/node_modules
+code/java/target
+pythonenv3.8

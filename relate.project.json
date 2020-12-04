@@ -1,14 +1,14 @@
 {
     "name": "movies",
     "description":"Small example graph of popular movies and actors",
-    "scriptFile":"scripts/movies.cypher",
-    "install": [
+    "dbms": [
       {
           "dumpFile": "data/movies-35.dump",
           "targetNeo4jVersion":"3.5"
       },
       {
           "dumpFile": "data/movies-40.dump",
+          "scriptFile":"scripts/movies.cypher",
           "targetNeo4jVersion": "^4.0"
       }
   ]
