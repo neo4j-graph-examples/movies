@@ -6,7 +6,7 @@ import (
 	"github.com/neo4j/neo4j-go-driver/neo4j" //Go 1.8
 )
 func main() {
-	s, err := runQuery("bolt://demo.neo4jlabs.com:7687", "<USERNAME>", "<PASSWORD>")
+	s, err := runQuery("bolt://<HOST>:<BOLTPORT>", "<USERNAME>", "<PASSWORD>")
 	if err != nil {
 		panic(err)
 	}
@@ -28,17 +28,15 @@ func runQuery(uri, username, password string) ([]string, error) {
 	results, err := session.ReadTransaction(func(transaction neo4j.Transaction) (interface{}, error) {
 		result, err := transaction.Run(
 			`
-			MATCH (movie:Movie)<-[:ACTED_IN]-(actor)-[:ACTED_IN]->(rec:Movie) 
-			WHERE movie.title = $favorite 
-			RETURN rec.title as title, count(*) as freq 
-			ORDER BY freq DESC LIMIT 5 
+			MATCH (movie:Movie {title:$favorite})<-[:ACTED_IN]-(actor)-[:ACTED_IN]->(rec:Movie)
+			RETURN distinct rec.title as title LIMIT 20
 			`, map[string]interface{}{
 				"favorite": "The Matrix",
 			})
 		if err != nil {
 			return nil, err
 		}
-		arr := make([]string, 0)
+		var arr []string
 		for result.Next() {
 			value, found := result.Record().Get("title")
 			if found {

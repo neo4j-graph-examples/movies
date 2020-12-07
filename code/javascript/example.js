@@ -1,30 +1,28 @@
 // npm install --save neo4j-driver
 // node example.js
-var neo4j = require('neo4j-driver');
-var driver = neo4j.driver('bolt://<HOST>:<BOLTPORT>', 
+const neo4j = require('neo4j-driver');
+const driver = neo4j.driver('bolt://<HOST>:<BOLTPORT>',
                   neo4j.auth.basic('<USERNAME>', '<PASSWORD>'), 
                   {/* encrypted: 'ENCRYPTION_OFF' */});
 
-var query = 
+const query =
   `
-  MATCH (movie:Movie)<-[:ACTED_IN]-(actor)-[:ACTED_IN]->(rec:Movie) 
-  WHERE movie.title = $favorite 
-  RETURN rec.title as title, count(*) as freq 
-  ORDER BY freq DESC LIMIT 5 
+  MATCH (movie:Movie {title:$favorite})<-[:ACTED_IN]-(actor)-[:ACTED_IN]->(rec:Movie)
+  RETURN distinct rec.title as title LIMIT 20
   `;
 
-var params = {"favorite": "The Matrix"};
+const params = {"favorite": "The Matrix"};
 
-var session = driver.session({database:"neo4j"});
+const session = driver.session({database:"neo4j"});
 
 session.run(query, params)
-  .then(function(result) {
-    result.records.forEach(function(record) {
+  .then((result) => {
+    result.records.forEach((record) => {
         console.log(record.get('title'));
-    })
-	session.close();
+    });
+    session.close();
     driver.close();
   })
-  .catch(function(error) {
-    console.log(error);
+  .catch((error) => {
+    console.error(error);
   });
