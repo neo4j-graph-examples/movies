@@ -1,0 +1,6 @@
+<%#encoding:UTF-8%><div<%= @id && %( id="#{@id}") %> class="<%= ['paragraph',role].compact * ' ' %>"><%
+if title? %>
+<div class="title"><%= title %></div><%
+end %>
+<p style='margin-top: 12px; margin-bottom: 24px; font-size: 16px; line-height: 28px;'><%= content %></p>
+</div>
