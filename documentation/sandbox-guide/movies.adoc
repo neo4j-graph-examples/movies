@@ -189,7 +189,7 @@ MATCH (p:Person) WHERE p.name = "Tom Hanks" RETURN p
 
 Both of the above queries will return the same results.
 
-You can read more about Where clause and list of all filters here - https://neo4j.com/docs/cypher-manual/4.1/clauses/where/
+You can read more about Where clause and list of all filters here - https://neo4j.com/docs/cypher-manual/current/clauses/where/
 
 *Try*
 
@@ -217,8 +217,8 @@ It is a combination of `MATCH` and `CREATE` and additionally allows to specify a
 
 [source, cypher]
 MERGE (p:Person {name: 'John Doe'})
-ON MATCH SET p.lastLoggedInAt = timestamp()
 ON CREATE SET p.createdAt = timestamp()
+ON MATCH SET p.lastLoggedInAt = timestamp()
 RETURN p
 
 The above statement will create the Person node if it does not exist. If the node already exists, then it will set the property `lastLoggedInAt` to the current timestamp. If the node did not exist and was newly created instead, then it will set the `createdAt` property to the current timestamp.
@@ -229,9 +229,9 @@ The above statement will create the Person node if it does not exist. If the nod
 1. Write a query using Merge to create a movie node with title "Greyhound". If the node does not exist then set its `released` property to 2020 and `lastUpdatedAt` property to the current time stamp. If the node already exists, then only set `lastUpdatedAt` to the current time stamp. Return the movie node.
 +
 [source.try-cypher-result,cypher]
-MERGE (m:movie {title: 'Greyhound'})
-ON MATCH SET m.lastUpdatedAt = timestamp()
+MERGE (m:Movie {title: 'Greyhound'})
 ON CREATE SET m.released = "2020", m.lastUpdatedAt = timestamp()
+ON MATCH SET m.lastUpdatedAt = timestamp()
 RETURN m
 
 == Create a Relationship
@@ -284,7 +284,7 @@ even without denoting the direction in the query, it will return the same result
 
 
 [source, cypher]
-MATCH (p:Person)-[:ACTED_IN]-(m:Movie) RETURN p,r,m
+MATCH (p:Person)-[r:ACTED_IN]-(m:Movie) RETURN p,r,m
 
 will return the same reuslt as the above one.
 
@@ -342,4 +342,4 @@ you can use one of the below resources
 
 1. link:https://neo4j.com/docs/cypher-manual/4.0/[Cypher Manual] - detailed manual on Cypher syntax
 
-2. link:https://neo4j.com/graphacademy/online-training/v4/00-intro-neo4j-about/[Online Training - Introuction to Neo4j] - If you are new to Neo4j and like to learn through an online class, this is the best place to get started.
+2. link:https://neo4j.com/graphacademy/online-training/v4/00-intro-neo4j-about/[Online Training - Introduction to Neo4j] - If you are new to Neo4j and like to learn through an online class, this is the best place to get started.
