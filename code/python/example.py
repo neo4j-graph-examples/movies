@@ -8,8 +8,8 @@ driver = GraphDatabase.driver(
   auth=basic_auth("<USERNAME>", "<PASSWORD>"))
 
 cypher_query = '''
-MATCH (movie:Movie {title:$favorite})<-[:ACTED_IN]-(actor)-[:ACTED_IN]->(rec:Movie) 
-RETURN distinct rec.title as title LIMIT 20
+MATCH (movie:Movie {title:$favorite})<-[:ACTED_IN]-(actor)-[:ACTED_IN]->(rec:Movie)
+ RETURN distinct rec.title as title LIMIT 20
 '''
 
 with driver.session(database="neo4j") as session:
