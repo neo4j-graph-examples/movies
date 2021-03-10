@@ -17,14 +17,6 @@
 :model: documentation/img/model.svg
 :example: documentation/img/example.png
 
-:query: MATCH (movie:Movie {title:$favorite})<-[:ACTED_IN]-(actor)-[:ACTED_IN]->(rec:Movie) +
- RETURN distinct rec.title as title LIMIT 20 +
-
-:param-name: favorite
-:param-value: The Matrix
-:result-column: title
-:expected-result: Cloud Atlas
-
 :todo: false
 image::{icon}[width=100]
 
@@ -43,9 +35,10 @@ image::{model}[]
 image::{example}[width=600]
 
 .Example Query:
-[source,cypher,subs=attributes]
+[source,cypher,role=query-example,param-name=favorite,param-value="The Matrix",result-column=title,expected-result="Cloud Atlas"]
 ----
-{query}
+MATCH (movie:Movie {title:$favorite})<-[:ACTED_IN]-(actor)-[:ACTED_IN]->(rec:Movie)
+ RETURN distinct rec.title as title LIMIT 20
 ----
 
 === Setup
