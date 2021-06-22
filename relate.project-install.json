@@ -8,6 +8,13 @@
       },
       {
           "dumpFile": "data/movies-40.dump",
+          "targetNeo4jVersion": "4.0.* - 4.2.*"
+      },
+      {
+          "dumpFile": "data/movies-43.dump",
+          "targetNeo4jVersion": "^4.3"
+      },
+      {
           "scriptFile":"scripts/movies.cypher",
           "targetNeo4jVersion": "^4.0"
       }
