@@ -1,6 +1,7 @@
 {
     "name": "movies",
     "description":"Small example graph of popular movies and actors",
+    "icon": "documentation/img/icon.svg",
     "dbms": [
       {
           "dumpFile": "data/movies-35.dump",
