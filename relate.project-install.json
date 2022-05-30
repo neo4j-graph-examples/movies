@@ -1,5 +1,6 @@
 {
     "name": "movies",
+    "title": "Movies",
     "description":"Small example graph of popular movies and actors",
     "icon": "documentation/img/icon.svg",
     "dbms": [
