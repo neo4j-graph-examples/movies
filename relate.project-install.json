@@ -17,6 +17,10 @@
           "targetNeo4jVersion": ">=4.3.0 <5.0.0"
       },
       {
+          "dumpFile": "data/movies-50.dump",
+          "targetNeo4jVersion": ">=5.0.0 <6.0.0"
+      },
+      {
           "scriptFile":"scripts/movies.cypher",
           "targetNeo4jVersion": ">=4.0.0"
       }
