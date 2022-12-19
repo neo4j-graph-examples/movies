@@ -28,7 +28,7 @@ MATCH (m:Movie) WHERE m.released > 2000 RETURN m LIMIT 5
 
 [TIP]
 ====
-You can click on the query above to populate it in the Cypher Editor in the Query tab.
+You can click on arrow or the icon:play-circle[] in the query above to populate it in the Cypher Editor in the Query tab.
 ====
 
 
@@ -83,7 +83,7 @@ MATCH (p:Person)-[d:DIRECTED]-(m:Movie) WHERE m.released > 2010 RETURN p,d,m
 
 [TIP]
 ====
-You can click on the query above to populate it in the Cypher Editor in the Query tab.
+You can click on arrow or the icon:play-circle[] in the query above to populate it in the Cypher Editor in the Query tab.
 ====
 
 *Expected Result*: The above query will return all Person nodes who directed a movie that was released after 2010.
@@ -171,7 +171,7 @@ The above statement will create a new `Person` node with property `name` having 
 CREATE (p:Person {name: '<Your Name>'}) RETURN p
 ----
 
-== Finding Nodes with *MATCH* and *WHERE* Clause
+== Finding Nodes with `MATCH` and `WHERE` Clause
 
 A `MATCH` clause is used to find nodes that match a particular pattern. 
 This is the primary way of getting data from a Neo4j database. 
@@ -268,7 +268,7 @@ The above statement will create a relationship `:WATCHED` between the existing `
 
 *Try*
 
-. Create a relationship `:WATCHED` between the node you created for yourself previously in step 6 and the movie *Cloud Atlas* and then return the type of created relationship
+. Create a relationship `:WATCHED` between the node you created for yourself previously in step 6 and the movie "Cloud Atlas" and then return the type of created relationship
 +
 [source.try-cypher-result,cypher]
 ----
