@@ -153,7 +153,7 @@ image::{img}/movies-properties.jpg[width="100%"]
 MATCH (p:Person) RETURN p.name, p.born
 ----
 
-== Create a Node
+== Create a node
 
 A `CREATE` clause can be used to create a new node or a relationship. 
 
@@ -172,7 +172,7 @@ The above statement will create a new `Person` node with property `name` having 
 CREATE (p:Person {name: '<Your Name>'}) RETURN p
 ----
 
-== Finding Nodes with MATCH and WHERE clauses
+== Finding nodes with MATCH and WHERE clauses
 
 A `MATCH` clause is used to find nodes that match a particular pattern. 
 This is the primary way of getting data from a Neo4j database. 
