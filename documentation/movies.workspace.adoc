@@ -55,13 +55,14 @@ MATCH (m:Movie) WHERE m.released > 2005 RETURN m
 MATCH (m:Movie) WHERE m.released > 2005 RETURN COUNT(m)
 ----
 
-== Nodes and Relationships
+== Nodes and relationships
 
-Nodes and Relationships are the basic building blocks of a graph database.
+Nodes and relationships are the basic building blocks of a graph database.
 
 *Nodes*
 
-Nodes represent entities. A node in graph database is similar to a row in a relational database. 
+Nodes represent entities. 
+A node in graph database is similar to a row in a relational database. 
 In the picture below we can see 2 kinds of nodes - `Person` and `Movie`. 
 When writing a Cypher query, a node is enclosed in parenthesis — like `(p:Person)` where `p` is a variable and `Person` is the type of node it is referring to.
 
@@ -101,23 +102,23 @@ MATCH (p:Person)-[d:ACTED_IN]-(m:Movie) WHERE m.released > 2010 RETURN p,d,m
 
 == Labels
 
-Labels is a name or identifier of a node or a relationship. 
+A label is a name or identifier of a node or a relationship. 
 In the image below `Movie` and `Person` are node labels and `ACTED_IN`, `REVIEWED`, etc are relationship types.
 
 image::{img}/schema.svg[width="100%"]
 
 When writing a Cypher query, labels are prefixed with a colon - like `:Person` or `:ACTED_IN`. 
-You can assign the node label to a variable by prefixing the syntax with the variable name. Like `(p:Person)` means `p` variable denoted `Person` labeled nodes.
+You can assign the node label to a variable by prefixing the syntax with the variable name, such as `(p:Person)` means `p` variable denoted `Person` labeled nodes.
 
 
-Labels are used when you want to perform operations only on a specific types of Nodes, like: 
+Labels are used when you want to perform operations only on a specific types of nodes, like: 
 
 [source, cypher]
 ----
 MATCH (p:Person) RETURN p LIMIT 20
 ----
 
-will return only `Person` Nodes (limiting to 20 items) while 
+will return only `Person` nodes (limiting to 20 items) while 
 
 [source, cypher]
 ----
@@ -171,7 +172,7 @@ The above statement will create a new `Person` node with property `name` having 
 CREATE (p:Person {name: '<Your Name>'}) RETURN p
 ----
 
-== Finding Nodes with `MATCH` and `WHERE` Clause
+== Finding Nodes with MATCH and WHERE clauses
 
 A `MATCH` clause is used to find nodes that match a particular pattern. 
 This is the primary way of getting data from a Neo4j database. 
@@ -212,10 +213,9 @@ MATCH (m:Movie {title: "Cloud Atlas"}) RETURN m
 MATCH (m:Movie) WHERE m.released > 2010 AND m.released < 2015 RETURN m
 ----
 
-== `MERGE` Clause
+== The MERGE clause
 
 The `MERGE` clause is used to either
-
 
 . match the existing nodes and bind them or
 . create new node(s) and bind them
@@ -253,7 +253,7 @@ RETURN m
 
 == Create a relationship
 
-A relationship connects 2 nodes.
+A relationship connects two nodes.
 
 [source, cypher]
 ----
@@ -281,7 +281,7 @@ RETURN type(w)
 
 == Relationship types
 
-In Neo4j, there can be 2 kinds of relationships - **incoming** and **outgoing**.
+In Neo4j, there can be two kinds of relationships - **incoming** and **outgoing**.
 
 image::{img}/relationship-types.svg[width='400']
 
