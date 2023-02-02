@@ -9,8 +9,6 @@
 :neo4j-version: 4.x
 :author: Shreyans Gandhi
 :tags: movies
-:images: https://dl.dropboxusercontent.com/u/14493611
-:images: {img}
 :experimental:
 
 ==  What is Cypher?
@@ -21,10 +19,16 @@ you would use Cypher to query the Neo4j Database.
 A simple Cypher query can look something like this 
 
 
+[%collapsible]
+====
+This content is only revealed when the user clicks the block title.
+====
+
 [source,cypher]
 ----
-MATCH (m:Movie) WHERE m.released > 2000 RETURN m LIMIT 5
-
+MATCH (m:Movie) 
+WHERE m.released > 2000 
+RETURN m LIMIT 5
 ----
 
 ++++
@@ -36,26 +40,35 @@ Hint: You can click on the query above to populate it in the editor.
 *Expected Result*: The above query will return all the movies that were released after the year 2000 limiting the result to 5 items.
 
 
-image::{images}/5-movies.svg[width="100%"]
+image::{img}/5-movies.svg[width="100%"]
 
 *Try*
 
 1. Write a query to retrieve all the movies released after the year 2005.
 +
-[source.try-cypher-result,cypher]
+[%collapsible]
+====
+[source,cypher]
 ----
-MATCH (m:Movie) WHERE m.released > 2005 RETURN m
+MATCH (m:Movie) 
+WHERE m.released > 2005 
+RETURN m
+----
+====
 
-----
 
 2. Write a query to return the count of movies released after the year 2005. (Hint: you can use the `COUNT(m)` function to return the count)
 
 +
-[source.try-cypher-result,cypher]
+[%collapsible]
+====
+[source,cypher]
 ----
-MATCH (m:Movie) WHERE m.released > 2005 RETURN COUNT(m)
-
+MATCH (m:Movie) 
+WHERE m.released > 2005 
+RETURN count(m)
 ----
+====
 
 == Nodes and Relationships
 
@@ -68,7 +81,7 @@ In the picture below we can see 2 kinds of nodes - `Person` and `Movie`. In writ
 
 parenthesis — like `(p:Person)` where `p` is a variable and `Person` is the type of node it is referring to.
 
-image::{images}/schema.svg[width="100%"]
+image::{img}/schema.svg[width="100%"]
 
 *Relationship*
 
@@ -82,8 +95,9 @@ Two nodes can be connected with more than one relationships.
 
 [source, cypher]
 ----
-MATCH (p:Person)-[d:DIRECTED]-(m:Movie) WHERE m.released > 2010 RETURN p,d,m
-
+MATCH (p:Person)-[d:DIRECTED]-(m:Movie) 
+WHERE m.released > 2010 
+RETURN p,d,m
 ----
 
 ++++
@@ -94,25 +108,28 @@ Hint: You can click on the query above to populate it in the editor.
 
 *Expected Result*: The above query will return all Person nodes who directed a movie that was released after 2010.
 
-image::{images}/movies-after-2010.svg[width="100%"]
+image::{img}/movies-after-2010.svg[width="100%"]
 
 *Try*
 
 1. Query to get all the people who acted in a movie that was released after 2010.
 +
-[source.try-cypher-result,cypher]
+[%collapsible]
+====
+[source,cypher]
 ----
-MATCH (p:Person)-[d:ACTED_IN]-(m:Movie) WHERE m.released > 2010 RETURN p,d,m
-
+MATCH (p:Person)-[r:ACTED_IN]-(m:Movie) 
+WHERE m.released > 2010 
+RETURN p,r,m
 ----
+====
 
 == Labels
 
 Labels is a name or identifier of a Node or a Relationship. In the image below `Movie` and `Person` are Node labels and `ACTED_IN`, `REVIEWED`, etc are Relationship types.
 
 
-
-image::{images}/schema.svg[width="100%"]
+image::{img}/schema.svg[width="100%"]
 
 In writing a Cypher query, Labels are prefixed with a colon - like `:Person` or `:ACTED_IN`. You can assign the node label to a variable by prefixing the syntax with the variable name. Like `(p:Person)` means `p` variable denoted `Person` labeled nodes.
 
@@ -120,12 +137,20 @@ In writing a Cypher query, Labels are prefixed with a colon - like `:Person` or 
 Labels are used when you want to perform operations only on a specific types of Nodes. Like 
 
 [source, cypher]
-MATCH (p:Person) RETURN p LIMIT 20
+----
+MATCH (p:Person) 
+RETURN p 
+LIMIT 20
+----
 
 will return only `Person` Nodes (limiting to 20 items) while 
 
 [source, cypher]
-MATCH (n) RETURN n LIMIT 20
+----
+MATCH (n) 
+RETURN n 
+LIMIT 20
+----
 
 will return all kinds of nodes (limiting to 20 items).
 
@@ -138,9 +163,12 @@ To return specific properties of a node you can write
 
 
 [source, cypher]
-MATCH (m:Movie) RETURN m.title, m.released
+----
+MATCH (m:Movie) 
+RETURN m.title, m.released
+----
 
-image::{images}/movies-properties.jpg[width="100%"]
+image::{img}/movies-properties.jpg[width="100%"]
 
 *Expected Result* - This will return Movie nodes but with only the `title` and `released` properties.
 
@@ -149,8 +177,14 @@ image::{images}/movies-properties.jpg[width="100%"]
 1. Write a query to get `name` and `born` properties of the Person node.
 
 +
-[source.try-cypher-result,cypher]
-MATCH (p:Person) RETURN p.name, p.born
+[%collapsible]
+====
+[source,cypher]
+----
+MATCH (p:Person) 
+RETURN p.name, p.born
+----
+====
 
 == Create a Node
 
@@ -158,7 +192,10 @@ MATCH (p:Person) RETURN p.name, p.born
 
 
 [source, cypher]
-CREATE (p:Person {name: 'John Doe'}) RETURN p
+----
+CREATE (p:Person {name: 'John Doe'}) 
+RETURN p
+----
 
 The above statement will create a new `Person` node with property `name` having value `John Doe`.
 
@@ -166,8 +203,14 @@ The above statement will create a new `Person` node with property `name` having 
 
 1. Create a new `Person` node with a property `name` having the value of your name.
 +
-[source.try-cypher-result,cypher]
-CREATE (p:Person {name: '<Your Name>'}) RETURN p
+[%collapsible]
+====
+[source,cypher]
+----
+CREATE (p:Person {name: '<Your Name>'}) 
+RETURN p
+----
+====
 
 == Finding Nodes with *Match* and *Where* Clause
 
@@ -176,7 +219,10 @@ CREATE (p:Person {name: '<Your Name>'}) RETURN p
 In most cases, a `Match` is used along with certain conditions to narrow down the result.
 
 [source, cypher]
-MATCH (p:Person {name: 'Tom Hanks'}) RETURN p
+----
+MATCH (p:Person {name: 'Tom Hanks'}) 
+RETURN p
+----
 
 This is one way of doing it. Although you can only do basic string match based filtering this way (without using `WHERE` clause).
 
@@ -184,8 +230,11 @@ Another way would be to use a `WHERE` clause which allows for more complex filte
 
 
 [source, cypher]
-MATCH (p:Person) WHERE p.name = "Tom Hanks" RETURN p
-
+----
+MATCH (p:Person) 
+WHERE p.name = "Tom Hanks" 
+RETURN p
+----
 
 Both of the above queries will return the same results.
 
@@ -195,14 +244,25 @@ You can read more about Where clause and list of all filters here - https://neo4
 
 1. Find the movie with title "Cloud Atlas"
 +
-[source.try-cypher-result,cypher]
-MATCH (m:Movie {title: "Cloud Atlas"}) RETURN m
-
+[%collapsible]
+====
+[source,cypher]
+----
+MATCH (m:Movie {title: "Cloud Atlas"}) 
+RETURN m
+----
+====
 2. Get all the movies that were released between 2010 and 2015.
 +
-[source.try-cypher-result,cypher]
-MATCH (m:Movie) WHERE m.released > 2010 AND m.released < 2015 RETURN m
-
+[%collapsible]
+====
+[source,cypher]
+----
+MATCH (m:Movie) 
+WHERE m.released > 2010 AND m.released < 2015 
+RETURN m
+----
+====
 
 == Merge Clause
 
@@ -216,10 +276,12 @@ It is a combination of `MATCH` and `CREATE` and additionally allows to specify a
 
 
 [source, cypher]
+----
 MERGE (p:Person {name: 'John Doe'})
 ON CREATE SET p.createdAt = timestamp()
 ON MATCH SET p.lastLoggedInAt = timestamp()
 RETURN p
+----
 
 The above statement will create the Person node if it does not exist. If the node already exists, then it will set the property `lastLoggedInAt` to the current timestamp. If the node did not exist and was newly created instead, then it will set the `createdAt` property to the current timestamp.
 
@@ -228,22 +290,29 @@ The above statement will create the Person node if it does not exist. If the nod
 
 1. Write a query using Merge to create a movie node with title "Greyhound". If the node does not exist then set its `released` property to 2020 and `lastUpdatedAt` property to the current time stamp. If the node already exists, then only set `lastUpdatedAt` to the current time stamp. Return the movie node.
 +
-[source.try-cypher-result,cypher]
+[%collapsible]
+====
+[source,cypher]
+----
 MERGE (m:Movie {title: 'Greyhound'})
 ON CREATE SET m.released = "2020", m.lastUpdatedAt = timestamp()
 ON MATCH SET m.lastUpdatedAt = timestamp()
 RETURN m
+----
+====
 
 == Create a Relationship
 
 A Relationship connects 2 nodes.
 
 [source, cypher]
+----
 MATCH (p:Person), (m:Movie)
 WHERE p.name = "Tom Hanks" AND m.title = "Cloud Atlas"
 
 CREATE (p)-[w:WATCHED]->(m)
 RETURN type(w)
+----
 
 The above statement will create a relationship `:WATCHED` between the existing `Person` and `Movie` nodes and return the type of relationship (i.e `WATCHED`).
 
@@ -251,18 +320,23 @@ The above statement will create a relationship `:WATCHED` between the existing `
 
 1. Create a relationship `:WATCHED` between the node you created for yourself previously in step 6 and the movie *Cloud Atlas* and then return the type of created relationship
 +
-[source.try-cypher-result,cypher]
+[%collapsible]
+====
+[source,cypher]
+----
 MATCH (p:Person), (m:Movie)
 WHERE p.name = "<Your Name>" AND m.title = "Cloud Atlas"
 
 CREATE (p)-[w:WATCHED]->(m)
 RETURN type(w)
+----
+====
 
 == Relationship Types
 
 In Neo4j, there can be 2 kinds of relationships - **incoming** and **outgoing**.
 
-image::{images}/relationship-types.svg[width='400']
+image::{img}/relationship-types.svg[width='400']
 
 In the above picture, the Tom Hanks node is said to have an outgoing relationship while the Cloud Atlas node is said to have an incoming relationship.
 
@@ -274,7 +348,10 @@ To denote an outgoing or an incoming relationship in cypher, we use `->` or `<-`
 Example -
 
 [source, cypher]
-MATCH (p:Person)-[r:ACTED_IN]->(m:Movie) RETURN p,r,m
+----
+MATCH (p:Person)-[r:ACTED_IN]->(m:Movie) 
+RETURN p,r,m
+----
 
 In the above query, Person has an outgoing relationship and movie has an incoming relationship.
 
@@ -284,7 +361,10 @@ even without denoting the direction in the query, it will return the same result
 
 
 [source, cypher]
-MATCH (p:Person)-[r:ACTED_IN]-(m:Movie) RETURN p,r,m
+----
+MATCH (p:Person)-[r:ACTED_IN]-(m:Movie) 
+RETURN p,r,m
+----
 
 will return the same reuslt as the above one.
 
@@ -292,10 +372,14 @@ will return the same reuslt as the above one.
 
 1. Write a query to find the nodes `Person` and `Movie` which are connected by `REVIEWED` relationship and is outgoing from the `Person` node and incoming to the `Movie` node.
 +
-[source.try-cypher-result,cypher]
+[%collapsible]
+====
+[source,cypher]
 ----
-MATCH (p:Person)-[r:REVIEWED]-(m:Movie) RETURN p,r,m
+MATCH (p:Person)-[r:REVIEWED]-(m:Movie) 
+RETURN p,r,m
 ----
+====
 
 == Advanced Cypher queries
 
@@ -306,18 +390,24 @@ Let's look at some questions that you can answer with Cypher queries.
 1. *Finding who directed Cloud Atlas movie*
 +
 [source, cypher]
-MATCH (m:Movie {title: 'Cloud Atlas'})<-[d:DIRECTED]-(p:Person) RETURN p.name
+----
+MATCH (m:Movie {title: 'Cloud Atlas'})<-[d:DIRECTED]-(p:Person) 
+RETURN p.name
+----
 
 2. *Finding all people who have co-acted with Tom Hanks in any movie*
 +
 [source, cypher]
-MATCH (tom:Person {name: "Tom Hanks"})-[:ACTED_IN]->(:Movie)<-[:ACTED_IN]-(p:Person) RETURN p.name
-
+----
+MATCH (tom:Person {name: "Tom Hanks"})-[:ACTED_IN]->(:Movie)<-[:ACTED_IN]-(p:Person) 
+RETURN p.name
+----
 3. *Finding all people related to the movie Cloud Atlas in any way*
 +
 [source, cypher]
 ----
-MATCH (p:Person)-[relatedTo]-(m:Movie {title: "Cloud Atlas"}) RETURN p.name, type(relatedTo)
+MATCH (p:Person)-[relatedTo]-(m:Movie {title: "Cloud Atlas"}) 
+RETURN p.name, type(relatedTo)
 ----
 +
 In the above query, we only used the variable `relatedTo` which will try to find all the relationships between any `Person` node and the movie node "Cloud Atlas"
@@ -326,7 +416,10 @@ In the above query, we only used the variable `relatedTo` which will try to find
 4. Finding Movies and Actors that are 3 hops away from Kevin Bacon.
 +
 [source, cypher]
-MATCH (p:Person {name: 'Kevin Bacon'})-[*1..3]-(hollywood) RETURN DISTINCT p, hollywood
+----
+MATCH (p:Person {name: 'Kevin Bacon'})-[*1..3]-(hollywood) 
+RETURN DISTINCT p, hollywood
+----
 
 Note: in the above query, `hollywood` refers to any node in the database (in this case `Person` and `Movie` nodes)
 
@@ -340,6 +433,5 @@ Feel free to play around with the data by writing more Cypher queries. If you wa
 you can use one of the below resources
 
 
-1. link:https://neo4j.com/docs/cypher-manual/4.0/[Cypher Manual] - detailed manual on Cypher syntax
-
-2. link:https://neo4j.com/graphacademy/online-training/v4/00-intro-neo4j-about/[Online Training - Introduction to Neo4j] - If you are new to Neo4j and like to learn through an online class, this is the best place to get started.
+1. link:https://neo4j.com/docs/cypher-manual/[Cypher Manual] - detailed manual on Cypher syntax
+2. link:https://graphacademy.neo4j.com/[Online Training - Introduction to Neo4j] - If you are new to Neo4j and like to learn through an online class, this is the best place to get started.
