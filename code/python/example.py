@@ -13,7 +13,7 @@ MATCH (movie:Movie {title:$favorite})<-[:ACTED_IN]-(actor)-[:ACTED_IN]->(rec:Mov
 '''
 
 with driver.session(database="neo4j") as session:
-  results = session.read_transaction(
+  results = session.execute_read(
     lambda tx: tx.run(cypher_query,
                       favorite="The Matrix").data())
   for record in results:
